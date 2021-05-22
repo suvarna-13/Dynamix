@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>woopie Register Template</title>
+    <meta name="author" content="David Grzyb">
+    <meta name="description" content="">
+
+    <!-- Tailwind -->
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+
+        .font-family-karla {
+            font-family: karla;
+        }
+        .gp img{
+            float: right;
+            
+           margin: 30px 20px 20px 20px;
+           border-radius: 10px;
+           box-shadow: 0 2px 29px 0 rgba(68, 88, 144, 0.12); 
+           height: 110%;
+        }
+        #screen{
+    background-image: url("https://i0.wp.com/gorgeouslyvegan.co.uk/wp-content/uploads/2017/02/123-sfondo-ok.jpeg?ssl=1");
+    background-size: 850px 850px;
+    animation-name: horror;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+  }
+        @keyframes horror{
+    /**0%{
+      background-image: url("https://wallpapertag.com/wallpaper/full/b/9/f/482012-strawberry-shortcake-backgrounds-2560x1440-for-mobile-hd.jpg");
+
+     
+    }**/
+    30%{
+      background-image: url("https://www.basware.com/getmedia/e0b934eb-b9d6-442c-9da5-ad25b92c9794/Evergreen-A-Perfect-e-Procurement")
+    }
+      50%{
+      background-image: url("https://media.istockphoto.com/photos/christmas-abstract-food-background-picture-id184682394");
+    }
+  }
+    </style>
+</head>
+<body id="screen" class="bg-white font-family-karla h-screen">
+
+    <div class="w-full flex flex-wrap">
+
+        <!-- Register Section -->
+        <div class="w-full md:w-1/2 flex flex-col">
+
+            <div class="flex justify-center md:justify-start pt-6 md:pl-6 md:-mb-6">
+              <!--  <a style="font-family:papyrus" href="#" class="bg-black text-white font-bold text-xl p-4">woopie</a>-->
+              <a href="index.html"> <img src="assets\img\bd7adcde6f7d4e96b88f04a7a0421e4d.png"></a>
+            </div>
+
+            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-14 lg:px-32">
+                <p class="text-center text-3xl"><b>Join Us.</b></p>
+                <form class="flex flex-col pt-3 md:pt-8" onsubmit="event.preventDefault();">
+                    <div class="flex flex-col pt-4">
+                        <label for="name" class="text-lg">Name</label>
+                        <input type="text" id="name" placeholder="John Smith" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <div class="flex flex-col pt-4">
+                        <label for="email" class="text-lg">Email</label>
+                        <input type="email" id="email" placeholder="your@email.com" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+    
+                    <div class="flex flex-col pt-4">
+                        <label for="password" class="text-lg">Password</label>
+                        <input type="password" id="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <div class="flex flex-col pt-2">
+                        <label for="confirm-password" class="text-lg">Confirm Password</label>
+                        <input type="password" id="confirm-password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+    
+                   <!-- <input type="submit" value="Register" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8" />-->
+               
+                    <button onclick="RegisterUser()" type="button" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">Register</button>
+                   
+
+                </form>
+                <div class="text-center pt-3 pb-3">
+                    <p>Already have an account? <a href="login.html" class="underline font-semibold">Log in here.</a></p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Image Section -->
+        <div class="w-1/2 shadow-2xl">
+            <img class="object-cover w-full h-screen hidden md:block gp" src="assets\img\grand.jpg" alt="Background" />
+        </div>
+    </div>
+    
+</script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+    <script>
+      var firebaseConfig = {
+      apiKey: "AIzaSyCLIYG7MwyOB5MZ2dSZnFsdNd4Qpzc8jMw",
+      authDomain: "woopielogin.firebaseapp.com",
+      databaseURL: "https://woopielogin-default-rtdb.firebaseio.com/",
+      projectId: "woopielogin",
+      storageBucket: "woopielogin.appspot.com",
+      messagingSenderId: "436522100517",
+      appId: "1:436522100517:web:a2d8005d56534953941ccc",
+      measurementId: "G-GFY8KBPKPD"
+  };
+  
+      firebase.initializeApp(firebaseConfig);
+  
+      function RegisterUser() {
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirm = document.getElementById("confirm-password").value;
+        
+  
+        firebase.auth().createUserWithEmailAndPassword(email,password).then(function() {
+        alert("User Registartion Successful");
+         var id=firebase.auth().currentUser.uid;
+        firebase.database().ref('' +id).set({
+              name:name,
+              confirm: confirm,
+        });
+  
+  
+        }).catch(function(error) {
+          var errorcode = error.code;
+          var errormsg = error.message;
+        });
+      }
+      /*function LoginUser(){
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        firebase.auth().signInWithEmailAndPassword(email,password).then(function(){
+  
+           var id=firebase.auth().currentUser.uid;
+           window.location.replace("file:///C:/Hackathons/2021/bvpieeeWieHack3.0/dashboard.html");
+          localStorage.setItem("id",id);
+  
+  
+  
+        }).catch(function(error){
+  
+          var errorCode=error.code;
+          var errorMsg=error.message;
+        })
+      };*/
+    </script>
+</body>
+</html>
